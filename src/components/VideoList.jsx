@@ -1,12 +1,12 @@
 import VideoListEntry from './VideoListEntry.js';
 
-const VideoList = ({ videos }) => {
+const VideoList = ({videos, changeVideo}) => {
   return (
     <div className="video-list">
 
       {videos.map((item) => (
-        <VideoListEntry video={item}/>
-      ))};
+        <VideoListEntry video={item} changeVideo={changeVideo} key ={item.etag}/>
+      ))}
 
     </div>
   );

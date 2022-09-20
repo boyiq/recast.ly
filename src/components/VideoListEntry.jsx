@@ -1,12 +1,13 @@
-var VideoListEntry = ({video}) => {
-  console.log(video);
+
+var VideoListEntry = ({video, changeVideo}) => {
+  // console.log(video);
   return (
     <div className="video-list-entry media">
       <div className="media-left media-middle">
         <img className="media-object" src={video.snippet.thumbnails.default.url} alt="" />
       </div>
       <div className="media-body">
-        <div className="video-list-entry-title">{video.snippet.title}</div>
+        <div onClick={(event) => { changeVideo(video); }} className="video-list-entry-title">{video.snippet.title}</div>
         <div className="video-list-entry-detail">{video.snippet.description}</div>
       </div>
     </div>

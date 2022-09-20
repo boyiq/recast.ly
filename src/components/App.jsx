@@ -4,25 +4,36 @@ import VideoListEntry from './VideoListEntry.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
 
+const {useState} = React;
+
 var App = () => {
   // console.log(Search);
-  console.log(exampleVideoData);
+  // console.log(exampleVideoData);
   // console.log(VideoList);
   // console.log(VideoListEntry);
   // console.log(VideoPlayer);
-  return <div>
-    <div className="col-md-6 offset-md-3">
-      <Search />
-    </div>
-    <div className="row">
-      <div className="col-md-7">
-        <VideoPlayer video/>
+
+  const changeVideo = (video) => {
+    setVideoPlayer(video);
+  };
+
+  const [videoPlayer, setVideoPlayer] = useState(exampleVideoData[0]);
+  const [allVideos, setAllVideos] = useState(exampleVideoData);
+
+  return (
+    <div>
+      <div className="col-md-6 offset-md-3">
+        <Search />
       </div>
-      <div className="col-md-5">
-        <VideoList videos = {exampleVideoData} />
+      <div className="row">
+        <div className="col-md-7">
+          <VideoPlayer video = {videoPlayer}/>
+        </div>
+        <div className="col-md-5">
+          <VideoList videos = {allVideos} changeVideo={changeVideo} />
+        </div>
       </div>
-    </div>
-  </div>;
+    </div>);
 };
 
 /* <nav className="navbar">
