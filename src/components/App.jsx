@@ -3,10 +3,11 @@ import VideoList from './VideoList.js';
 import VideoListEntry from './VideoListEntry.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
+import searchYouTube from '../lib/searchYouTube.js';
 
 const {useState} = React;
 
-var App = () => {
+var App = ({search}) => {
   // console.log(Search);
   // console.log(exampleVideoData);
   // console.log(VideoList);
@@ -17,13 +18,89 @@ var App = () => {
     setVideoPlayer(video);
   };
 
-  const [videoPlayer, setVideoPlayer] = useState(exampleVideoData[0]);
-  const [allVideos, setAllVideos] = useState(exampleVideoData);
+  let timeout = null;
+
+  const searchHandler = (event) => {
+
+    clearTimeout(timeout);
+    timeout = setTimeout(searchYouTube(event.target.value,
+      ((data) => (setAllVideos(data))), 5000));
+    //console.log(event.target.value);
+  };
+
+  const [videoPlayer, setVideoPlayer] = useState({
+    "kind": "",
+    "etag": "",
+    "id": {
+      "kind": "",
+      "videoId": ""
+    },
+    "snippet": {
+      "publishedAt": "",
+      "channelId": "",
+      "title": "",
+      "description": "",
+      "thumbnails": {
+        "default": {
+          "url": "",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "",
+          "width": 480,
+          "height": 360
+        }
+      },
+      "channelTitle": "",
+      "liveBroadcastContent": "",
+      "publishTime": ""
+    }
+  });
+  const [allVideos, setAllVideos] = useState([{
+    "kind": "",
+    "etag": "",
+    "id": {
+      "kind": "",
+      "videoId": ""
+    },
+    "snippet": {
+      "publishedAt": "",
+      "channelId": "",
+      "title": "",
+      "description": "",
+      "thumbnails": {
+        "default": {
+          "url": "",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "",
+          "width": 480,
+          "height": 360
+        }
+      },
+      "channelTitle": "",
+      "liveBroadcastContent": "",
+      "publishTime": ""
+    }
+  }]);
 
   return (
     <div>
       <div className="col-md-6 offset-md-3">
-        <Search />
+        <Search searchHandlerProp = {(e) => { searchHandler(e); }} />
       </div>
       <div className="row">
         <div className="col-md-7">
