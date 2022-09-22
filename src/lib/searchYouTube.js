@@ -25,11 +25,13 @@ var searchYouTube = (query, callback) => {
   //  }
   //});
 
-  $.get( 'https://app-hrsei-api.herokuapp.com/api/recastly/videos', {q: query, youtube_api_key: YOUTUBE_API_KEY}, 'application/json')
-    .done(function () {
-      //console.log(data);
+  $.get( 'https://app-hrsei-api.herokuapp.com/api/recastly/videos',
+  {
+    q: query, youtube_api_key: YOUTUBE_API_KEY, contentType: 'application/json'})
+    .done(function (data) {
+      console.log(data);
       console.log('react.ly: Query sent');
-      callback();
+      callback(data);
     });
 };
 
